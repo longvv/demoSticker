@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uId-83-apz">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ZO-RZ-dLJ">
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                                <animations/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ueK-9a-6y3"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0ZO-RZ-dLJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="9ho-bx-UaJ"/>
+                            <constraint firstItem="0ZO-RZ-dLJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Det-SN-cTc"/>
+                            <constraint firstAttribute="trailing" secondItem="0ZO-RZ-dLJ" secondAttribute="trailing" id="EPa-h8-N99"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="0ZO-RZ-dLJ" secondAttribute="bottom" id="iYh-1e-nzO"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="MK8-gt-xzz">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="USN-nU-pFg">
+                            <connections>
+                                <action selector="addSticker:" destination="BYZ-38-t0r" id="vVO-JQ-nAm"/>
+                            </connections>
+                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="save" id="Jz2-Tu-HZw">
+                                <connections>
+                                    <action selector="saveImage:" destination="BYZ-38-t0r" id="zIq-wk-9P2"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="refresh" id="E8K-sr-O4N">
+                                <connections>
+                                    <action selector="reload:" destination="BYZ-38-t0r" id="bJH-UL-d9F"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="scrollView" destination="0ZO-RZ-dLJ" id="tKa-64-AGy"/>
+                        <segue destination="pd0-6M-mNs" kind="push" id="3sF-dY-iC7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="133" y="-34"/>
+        </scene>
+        <!--Collection View Controller-->
+        <scene sceneID="O2d-jR-goX">
+            <objects>
+                <collectionViewController storyboardIdentifier="CollectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pd0-6M-mNs" customClass="CollectionViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="fAp-oW-CTE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="otz-4T-ppM">
+                            <size key="itemSize" width="109" height="101"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StickerCollectionViewCell" id="ZJL-ss-zQC" customClass="StickerCollectionViewCell">
+                                <rect key="frame" x="0.0" y="74" width="109" height="101"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="109" height="101"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="27P-p0-aVG">
+                                            <rect key="frame" x="0.0" y="0.0" width="109" height="101"/>
+                                            <animations/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </imageView>
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_check" translatesAutoresizingMaskIntoConstraints="NO" id="mSp-qJ-OdM">
+                                            <rect key="frame" x="81" y="8" width="20" height="20"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="66A-WQ-jl9"/>
+                                                <constraint firstAttribute="width" constant="20" id="7Yd-Xh-PSZ"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="27P-p0-aVG" firstAttribute="top" secondItem="ZJL-ss-zQC" secondAttribute="top" id="4Up-5F-Ffs"/>
+                                    <constraint firstItem="27P-p0-aVG" firstAttribute="leading" secondItem="ZJL-ss-zQC" secondAttribute="leading" id="NbC-N7-hPD"/>
+                                    <constraint firstAttribute="trailing" secondItem="27P-p0-aVG" secondAttribute="trailing" id="dpV-br-zkV"/>
+                                    <constraint firstAttribute="bottom" secondItem="27P-p0-aVG" secondAttribute="bottom" id="fKu-p1-Au6"/>
+                                    <constraint firstAttribute="trailing" secondItem="mSp-qJ-OdM" secondAttribute="trailing" constant="8" id="qKq-d1-AXj"/>
+                                    <constraint firstItem="mSp-qJ-OdM" firstAttribute="top" secondItem="ZJL-ss-zQC" secondAttribute="top" constant="8" id="uWW-R0-XaN"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imgSelected" destination="mSp-qJ-OdM" id="0F2-ah-Pkv"/>
+                                    <outlet property="imgStick" destination="27P-p0-aVG" id="bGQ-w0-Im5"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="pd0-6M-mNs" id="q0N-7y-jts"/>
+                            <outlet property="delegate" destination="pd0-6M-mNs" id="3wk-iA-2ny"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="9z6-dj-IpF">
+                        <barButtonItem key="leftBarButtonItem" systemItem="reply" id="cv2-rl-tgy">
+                            <connections>
+                                <action selector="back:" destination="pd0-6M-mNs" id="WWB-We-TTx"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="9fl-VP-VUa">
+                            <connections>
+                                <action selector="done:" destination="pd0-6M-mNs" id="LRq-16-tlF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LMK-fl-MCP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="626" y="-34"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="M1M-Gh-W44">
+            <objects>
+                <navigationController id="uId-83-apz" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6Dl-oQ-CKo">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="tUr-Vp-MO7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0L8-3R-Ueg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-352" y="-34"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="img_check" width="20" height="20"/>
+    </resources>
+</document>
