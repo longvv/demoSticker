@@ -8,9 +8,10 @@
 
 #import "ViewController.h"
 #import "CollectionViewController.h"
+#import "CLImageEditor.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface ViewController ()<StickerDelegate>
+@interface ViewController ()<StickerDelegate, CLImageEditorDelegate, CLImageEditorTransitionDelegate, CLImageEditorThemeDelegate>
 
 @end
 
@@ -35,12 +36,23 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
+    if (isShowImageEditor) {
+        return;
+    }
+    if (isShowStickEditor) {
+        isShowStickEditor = NO;
+        return;
+    }
+    
     if (!self.imageView) {
         self.imageView = [[UIImageView alloc] initWithFrame:self.scrollView.bounds];
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-        self.imageView.image = [UIImage imageNamed:@"img_beach.jpg"];
+        self.imageView.image = [UIImage imageNamed:@"img_beach_1.jpg"];
+        [self.scrollView setZoomScale:5];
         [self.scrollView addSubview:self.imageView];
     }
+    [self zoomOut];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -69,7 +81,7 @@
         [self.stick setUserInteractionEnabled:YES];
         [self.view addSubview:self.stick];
     }
-    UIImage* image = [UIImage imageNamed:[NSString stringWithFormat:@"%d", (index + 1)]];
+    UIImage* image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld", (index + 1)]];
     [self.stick setImage:image];
 }
 
@@ -77,11 +89,34 @@
     [[[UIAlertView alloc] initWithTitle:@"Congratulation!" message:@"Your picture was saved into system photo library. You can view it right now!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
 }
 
+- (void)zoomOut{
+    [self.imageView setImage:[UIImage imageNamed:@"img_beach_1.jpg"]];
+    [self.btnAdd setEnabled:NO];
+    [self.btnEdit setEnabled:NO];
+    [self.btnReload setEnabled:NO];
+    [self.btnSave setEnabled:NO];
+    
+    [UIView animateWithDuration:3.0 delay:1.0 options:UIViewAnimationOptionTransitionNone animations:^{
+        [self.imageView setImage:[UIImage imageNamed:@"img_beach_2.jpg"]];
+        [self.scrollView setZoomScale:1];
+    } completion:^(BOOL finished) {
+        [self.btnAdd setEnabled:YES];
+        [self.btnEdit setEnabled:YES];
+        [self.btnReload setEnabled:YES];
+        [self.btnSave setEnabled:YES];
+    }];
+}
+
 - (IBAction)addSticker:(id)sender {
     CollectionViewController* controller = [self.storyboard instantiateViewControllerWithIdentifier:@"CollectionViewController"];
     controller.delegate = self;
     controller.stickerSelectedIndex = stickerIndex;
+    isShowStickEditor = YES;
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (IBAction)editImage:(id)sender {
+    [self pushedEditBtn];
 }
 
 - (IBAction)saveImage:(id)sender {
@@ -104,6 +139,31 @@
     [self.stick removeFromSuperview];
     self.stick = nil;
     stickerIndex = -1;
-    [self.scrollView setZoomScale:1.0];
+    
+    [self.scrollView setZoomScale:5];
+    [self zoomOut];
+}
+
+#pragma mark- CLImageEditor delegate
+- (void)imageEditor:(CLImageEditor *)editor didFinishEdittingWithImage:(UIImage *)image
+{
+    _imageView.image = image;
+    [editor dismissViewControllerAnimated:YES completion:^{
+        isShowImageEditor = NO;
+    }];
+}
+
+- (void)imageEditor:(CLImageEditor *)editor willDismissWithImageView:(UIImageView *)imageView canceled:(BOOL)canceled
+{
+    isShowImageEditor = NO;
+}
+
+- (void)pushedEditBtn
+{
+    if(_imageView.image){
+        CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self];
+        [self presentViewController:editor animated:YES completion:nil];
+        isShowImageEditor = YES;
+    }
 }
 @end
