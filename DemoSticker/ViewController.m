@@ -47,7 +47,7 @@
     
     if (!self.imageView) {
         self.imageView = [[UIImageView alloc] initWithFrame:self.scrollView.bounds];
-        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.imageView.image = [UIImage imageNamed:@"img_beach_1.jpg"];
         [self.scrollView setZoomScale:5];
         [self.scrollView addSubview:self.imageView];
